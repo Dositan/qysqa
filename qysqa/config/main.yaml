@@ -1,4 +1,4 @@
 secret_key: "dev"
-url: "localhost:5000"
+url: "localhost:8000"
 production_url: "localhost/"  # This should not be used in website logic
 debug: true
