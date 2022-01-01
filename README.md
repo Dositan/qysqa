@@ -5,3 +5,58 @@
 	<strong>how do you pronounce it tho?</strong>
 	<p>- It's "qısqa", which means "short" in Kazakh</p>
 </div>
+
+![Site demo](qysqa/static/demo.png)
+
+### Why to use?
+**Simplicity.** Qysqa is really easy to use and it's completely free!
+
+---
+
+### Run locally
+
+Clone the repository:
+
+	$ git clone https://github.com/xemeds/qysqa.git
+
+CD into the directory, spawn virtual environment and install dependencies:
+
+	$ cd qysqa
+	$ python -m venv venv
+	$ . venv/bin/activate
+	$ pip install -r requirements.txt
+
+Run app with:
+
+	$ flask run
+
+Visit the below URL to view the flask app:
+
+	localhost:5000
+
+**NOTE:** When running locally all short URLs will also be local.
+
+Qysqa also provides simple CLI features:
+
+	$ flask --help
+	Usage: flask [OPTIONS] COMMAND [ARGS]...
+
+	...
+
+	Commands:
+	init-db  Clear the existing data and create new tables.
+	main     Make URL manipulations directly in the terminal
+	routes   Show the routes for the app.
+	run      Run a development server.
+	shell    Run a shell in the app context.
+
+---
+
+### Todo
+
+- [ ] Implement auth feature
+	- [ ] Ability to sort by user ID
+- [ ] User statistics
+- [ ] Better CLI
+	- [ ] Ability to use other shorteners
+- [ ] Deploy to Heroku
