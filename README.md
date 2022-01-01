@@ -17,22 +17,17 @@
 
 Clone the repository:
 
-	$ git clone https://github.com/xemeds/qysqa.git
+	$ git clone https://github.com/Dositan/qysqa.git
 
 CD into the directory, spawn virtual environment and install dependencies:
 
 	$ cd qysqa
-	$ python -m venv venv
-	$ . venv/bin/activate
-	$ pip install -r requirements.txt
+	$ poetry shell
+	$ poetry install
 
 Run app with:
 
 	$ flask run
-
-Visit the below URL to view the flask app:
-
-	localhost:5000
 
 **NOTE:** When running locally all short URLs will also be local.
 
