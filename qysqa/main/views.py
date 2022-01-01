@@ -1,11 +1,13 @@
-from flask import Blueprint, render_template, redirect
-
+import click
+from flask import Blueprint, redirect, render_template
 from qysqa import config, db
 from qysqa.main.forms import ShortURLForm, URLForm
 from qysqa.main.models import URL
 from qysqa.main.token import gen_valid_token
 
 bp = Blueprint("main", __name__)
+bp.cli.short_help = "Make URL manipulations directly in the terminal"
+
 
 @bp.route("/", methods=["GET", "POST"])
 def index():
@@ -108,3 +110,33 @@ def error_500(_):
         ),
         500,
     )
+
+
+# Command-Line Interface
+@bp.cli.command("shorten")
+@click.argument("url")
+def cmd_shorten(url: str):
+    """Shorten URL"""
+    token = gen_valid_token()
+    db.session.add(URL(token=token, url=url))
+    db.session.commit()
+
+    result = f"{config['url']}/{token}"
+    click.secho(f"Here is your short URL: {result}", fg="green")
+
+
+@bp.cli.command("tracker")
+@click.argument("token")
+def cmd_tracker(token: str):
+    """Track URL"""
+    clicks = URL.query.filter_by(token=token).first().clicks
+    click.secho(f"URL has: {clicks} {'click' if clicks == 1 else 'clicks'}", fg="green")
+
+
+@bp.cli.command("lookup")
+@click.argument("token")
+def cmd_lookup(token: str):
+    """URL Lookup"""
+    url = URL.query.filter_by(token=token).first().url
+    click.secho(f"Original URL: {url}", fg="green")
+
