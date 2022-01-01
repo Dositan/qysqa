@@ -1,0 +1,2 @@
+FLASK_APP=qysqa
+FLASK_ENV=development
