@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="clicks">
+	<h1>{{ clicks }}</h1>
+	<h2>{{ "Click" if clicks == 1 else "Clicks" }}</h2>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block body %}
+<form method="POST" action="" class="url-form">
+	<h1>&#60 URL Shortener &#62</h1>
+	{{ form.hidden_tag() }}
+	{{ form.url(placeholder="Enter the URL here", autofocus=true, class="feedback-input") }}
+	<div class="token">
+		<h3>{{ config["production_url"] }}</h3>
+		{{ form.token(placeholder="Use custom alias (optional)", class="feedback-input") }}
+	</div>
+	{{ form.submit(class="button") }}
+	{% if form.errors %}
+		<div class="form-errors">
+			{% for error in form.url.errors %}
+				<h4>{{ error }}</h4>
+			{% endfor %}
+			{% for error in form.token.errors %}
+				<h4>{{ error }}</h4>
+			{% endfor %}
+		</div>
+	{% endif %}
+</form>
+{% endblock %}
