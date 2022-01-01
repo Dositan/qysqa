@@ -32,6 +32,10 @@ def create_app():
     db.init_app(app)
     app.cli.add_command(init_db)
 
+    from . import main
+
+    app.register_blueprint(main.bp)
+
     # make "index" point at "/"
     app.add_url_rule("/", endpoint="index")
 
