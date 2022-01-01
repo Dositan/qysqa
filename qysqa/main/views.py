@@ -1,5 +1,6 @@
 import click
 from flask import Blueprint, redirect, render_template
+
 from qysqa import config, db
 from qysqa.main.forms import ShortURLForm, URLForm
 from qysqa.main.models import URL
@@ -139,4 +140,3 @@ def cmd_lookup(token: str):
     """URL Lookup"""
     url = URL.query.filter_by(token=token).first().url
     click.secho(f"Original URL: {url}", fg="green")
-
