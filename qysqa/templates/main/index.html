@@ -6,7 +6,7 @@
 	{{ form.hidden_tag() }}
 	{{ form.url(placeholder="Enter the URL here", autofocus=true, class="feedback-input") }}
 	<div class="token">
-		<h3>{{ config["production_url"] }}</h3>
+		<h3 id="production_url">this text will be changed sooner</h3>
 		{{ form.token(placeholder="Use custom alias (optional)", class="feedback-input") }}
 	</div>
 	{{ form.submit(class="button") }}
@@ -21,4 +21,8 @@
 		</div>
 	{% endif %}
 </form>
+{% endblock %}
+
+{% block script %}
+document.getElementById('production_url').textContent = window.location.href
 {% endblock %}
