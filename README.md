@@ -1,5 +1,5 @@
 <div align="center">
-    <h1>Qysqa - shorten your URL.</h1>
+    <h1>Qysqa - shorten your URL</h1>
     <p>~ A simple URL-shortening website.</p>
 	<br/>
 	<strong>how do you pronounce it tho?</strong>
@@ -49,9 +49,20 @@ Qysqa also provides simple CLI features:
 
 ### Todo
 
+- [ ] API:
+	- [ ] Make CLI use hosted API rather than returning static localhost
+
+- [x] Change configuration:
+	- [x] the way of configuring
+	- [x] configuration structure
+	- [x] more flexible implementation, by probably using qysqa/config.py and .env
+	- [ ] add database credentials
+
 - [ ] Implement auth feature
 	- [ ] Ability to sort by user ID
-- [ ] User statistics
+	- [ ] User statistics
+
 - [ ] Better CLI
 	- [ ] Ability to use other shorteners
-- [ ] Deploy to Heroku
+
+- [x] Deploy to Heroku
