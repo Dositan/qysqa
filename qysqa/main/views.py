@@ -2,7 +2,7 @@ import click
 from flask import Blueprint, redirect, render_template, request
 
 from qysqa import db
-from qysqa.main.forms import TokenForm, URLForm
+from qysqa.main.forms import ShortURLForm, URLForm
 from qysqa.main.models import URL
 from qysqa.main.token import gen_valid_token
 
@@ -13,7 +13,7 @@ bp.cli.short_help = "Make URL manipulations directly in the terminal"
 @bp.route("/", methods=("GET", "POST"))
 def index():
     form = URLForm()
-    url = request.base_url
+    url = request.root_url
 
     if form.validate_on_submit():
         if form.token.data:
@@ -57,11 +57,12 @@ def short_url(token):
 
 @bp.route("/tracker", methods=("GET", "POST"))
 def tracker():
-    form = TokenForm()
+    form = ShortURLForm()
 
     if form.validate_on_submit():
         # Get the clicks of the given token
-        clicks = URL.query.filter_by(token=form.token.data).first().clicks
+        token = form.url.data.split("/")[-1]
+        clicks = URL.query.filter_by(token=token).first().clicks
         return render_template("main/clicks.html", clicks=clicks)
     else:
         return render_template("main/tracker.html", form=form)
@@ -69,11 +70,12 @@ def tracker():
 
 @bp.route("/lookup", methods=("GET", "POST"))
 def lookup():
-    form = TokenForm()
+    form = ShortURLForm()
 
     if form.validate_on_submit():
         # Get the original url of the given token
-        url = URL.query.filter_by(token=form.token.data).first().url
+        token = form.url.data.split("/")[-1]
+        url = URL.query.filter_by(token=token).first().url
         return render_template("main/original-url.html", url=url)
     else:
         return render_template("main/lookup.html", form=form)
