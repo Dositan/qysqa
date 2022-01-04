@@ -1,3 +1,0 @@
-FLASK_APP=qysqa
-FLASK_ENV=development
-FLASK_RUN_PORT=8000

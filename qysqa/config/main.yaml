@@ -1,4 +1,0 @@
-secret_key: "dev"
-url: "https://qysqa.herokuapp.com"
-production_url: "qysqa.herokuapp.com/"  # This should not be used in website logic
-debug: true
