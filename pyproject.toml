@@ -10,7 +10,6 @@ Flask = "^2.0.2"
 Flask-SQLAlchemy = "^2.5.1"
 Flask-WTF = "^1.0.0"
 python-dotenv = "^0.19.2"
-PyYAML = "^6.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
