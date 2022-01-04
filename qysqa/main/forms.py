@@ -2,22 +2,21 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, ValidationError
 from wtforms.validators import DataRequired, Length, Optional
 
-from qysqa import config, db
+from qysqa import db
 from qysqa.main.models import URL
 
-WEBSITE_DOMAIN = config["url"]
-MIN_SHORT_URL_LENGTH = len(WEBSITE_DOMAIN) + 7
-MAX_SHORT_URL_LENGTH = len(WEBSITE_DOMAIN) + 25
+# APP_URL = "https://localhost:55000"
+# MIN_SHORT_URL_LENGTH = len(APP_URL) + 7
+# MAX_SHORT_URL_LENGTH = len(APP_URL) + 25
 
 
 def validate_url(_, field):
-    # Make sure the url is not too short or long
+    # Make sure url is not too short or long
     if len(field.data) < 4 or len(field.data) > 2000:
         return
 
-    # If the url contains spaces or does not have any dots
-    if (" " in field.data) or not ("." in field.data):
-        # Raise a ValidationError
+    # If url contains spaces or does not have any dots
+    if " " in field.data or not "." in field.data:
         raise ValidationError("Invalid URL")
 
     # If the url starts with a dot after http:// or after https:// or just starts with a dot
@@ -26,7 +25,6 @@ def validate_url(_, field):
         or field.data.lower().startswith("https://.")
         or field.data.startswith(".")
     ):
-        # Raise a ValidationError
         raise ValidationError("Invalid URL")
 
     # If the url starts with a slash after http:// or after https:// or just starts with a slash
@@ -35,24 +33,20 @@ def validate_url(_, field):
         or field.data.lower().startswith("https:///")
         or field.data.startswith("/")
     ):
-        # Raise a ValidationError
         raise ValidationError("Invalid URL")
 
     # If the url ends with a dot and it is the only dot
     if field.data.endswith(".") and field.data.count(".") == 1:
-        # Raise a ValidationError
         raise ValidationError("Invalid URL")
 
-    # If the url contains the websites domain
-    if WEBSITE_DOMAIN in field.data.lower():
-        # Raise a ValidationError
-        raise ValidationError("Invalid URL")
+    # If the url contains the website domain
+    # if APP_URL in field.data.lower():
+    #     raise ValidationError("Invalid URL")
 
     # If the URL does not start with http:// and https://
     if not (field.data.lower().startswith("http://")) and not (
         field.data.lower().startswith("https://")
     ):
-        # Add http:// to the beginning of the URL
         field.data = "http://" + field.data
 
 
@@ -64,7 +58,6 @@ def validate_token(_, field):
     if field.data in ("tracker", "lookup", "removed"):
         raise ValidationError("Token name is reserved by website endpoints.")
 
-    # For each character in the token
     for char in field.data:
         # If it is not a valid character
         if (
@@ -81,38 +74,54 @@ def validate_token(_, field):
         raise ValidationError("Token already exists")
 
 
-def validate_short_url(_, field):
-    # Make sure the short url is not too short or long
-    if len(field.data) < (MIN_SHORT_URL_LENGTH) or len(field.data) > (
-        MAX_SHORT_URL_LENGTH
-    ):
+# def validate_short_url(_, field):
+#     # Make sure the short url is not too short or long
+#     if len(field.data) < (MIN_SHORT_URL_LENGTH) or len(field.data) > (
+#         MAX_SHORT_URL_LENGTH
+#     ):
+#         return
+
+#     # If the start of the short url is not valid
+#     if (
+#         not (field.data.lower().startswith(APP_URL + "/"))
+#         and not (field.data.lower().startswith("http://" + APP_URL + "/"))
+#         and not (field.data.lower().startswith("https://" + APP_URL + "/"))
+#     ):
+#         raise ValidationError("Invalid short URL")
+
+#     # Get the token of the short url
+#     if field.data.lower().startswith(APP_URL + "/"):
+#         token = field.data[len(APP_URL) + 1 :]
+
+#     elif field.data.lower().startswith("http://" + APP_URL + "/"):
+#         token = field.data[len(APP_URL) + 8 :]
+
+#     elif field.data.lower().startswith("https://" + APP_URL + "/"):
+#         token = field.data[len(APP_URL) + 9 :]
+
+#     if not db.session.query(
+#         db.session.query(URL).filter_by(token=token).exists()
+#     ).scalar():
+#         raise ValidationError("This short URL does not exist.")
+
+#     # After all the validation is done set the forms url value as the token
+#     field.data = token
+
+
+def validate_existing_token(_, field):
+    token = field.data
+
+    # The user is posting URL, not token
+    if token.startswith("http"):
+        field.data = token.split("/")[-1]
+
+    if len(token) < 6 or len(token) > 200:
         return
 
-    # If the start of the short url is not valid
-    if (
-        not (field.data.lower().startswith(WEBSITE_DOMAIN + "/"))
-        and not (field.data.lower().startswith("http://" + WEBSITE_DOMAIN + "/"))
-        and not (field.data.lower().startswith("https://" + WEBSITE_DOMAIN + "/"))
-    ):
-        raise ValidationError("Invalid short URL")
-
-    # Get the token of the short url
-    if field.data.lower().startswith(WEBSITE_DOMAIN + "/"):
-        token = field.data[len(WEBSITE_DOMAIN) + 1 :]
-
-    elif field.data.lower().startswith("http://" + WEBSITE_DOMAIN + "/"):
-        token = field.data[len(WEBSITE_DOMAIN) + 8 :]
-
-    elif field.data.lower().startswith("https://" + WEBSITE_DOMAIN + "/"):
-        token = field.data[len(WEBSITE_DOMAIN) + 9 :]
-
     if not db.session.query(
-        db.session.query(URL).filter_by(token=token).exists()
+        db.session.query(URL).filter_by(token=field.data).exists()
     ).scalar():
-        raise ValidationError("This short URL does not exist.")
-
-    # After all the validation is done set the forms url value as the token
-    field.data = token
+        raise ValidationError("This token does not exist.")
 
 
 class URLForm(FlaskForm):
@@ -133,16 +142,29 @@ class URLForm(FlaskForm):
     submit = SubmitField("Shorten")
 
 
-class ShortURLForm(FlaskForm):
-    url = StringField(
+# class ShortURLForm(FlaskForm):
+#     url = StringField(
+#         validators=[
+#             DataRequired(),
+#             Length(
+#                 min=MIN_SHORT_URL_LENGTH,
+#                 max=MAX_SHORT_URL_LENGTH,
+#                 message="Invalid short URL",
+#             ),
+#             validate_short_url,
+#         ]
+#     )
+#     submit = SubmitField("Submit")
+
+
+class TokenForm(FlaskForm):
+    token = StringField(
         validators=[
             DataRequired(),
-            Length(
-                min=MIN_SHORT_URL_LENGTH,
-                max=MAX_SHORT_URL_LENGTH,
-                message="Invalid short URL",
-            ),
-            validate_short_url,
+            # Setting max=44 because user can pass entire short url
+            # and we can't get url_root length to find maximum allowed length.
+            Length(min=6, max=44, message="Invalid token"),
+            validate_existing_token,
         ]
     )
     submit = SubmitField("Submit")

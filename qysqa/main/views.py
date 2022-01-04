@@ -1,8 +1,8 @@
 import click
-from flask import Blueprint, redirect, render_template
+from flask import Blueprint, redirect, render_template, request
 
-from qysqa import config, db
-from qysqa.main.forms import ShortURLForm, URLForm
+from qysqa import db
+from qysqa.main.forms import TokenForm, URLForm
 from qysqa.main.models import URL
 from qysqa.main.token import gen_valid_token
 
@@ -10,16 +10,17 @@ bp = Blueprint("main", __name__)
 bp.cli.short_help = "Make URL manipulations directly in the terminal"
 
 
-@bp.route("/", methods=["GET", "POST"])
+@bp.route("/", methods=("GET", "POST"))
 def index():
     form = URLForm()
+    url = request.base_url
 
     if form.validate_on_submit():
         if form.token.data:
             db.session.add(URL(token=form.token.data, url=form.url.data))
             db.session.commit()
 
-            result = f"{config['url']}/{form.token.data}"
+            result = f"{url}{form.token.data}"
             return render_template("main/url.html", result=result)
 
         # Else if a token was not given
@@ -29,20 +30,18 @@ def index():
             db.session.commit()
 
             # Return the url page with the shortened url
-            result = f"{config['url']}/{token}"
+            result = f"{url}{token}"
             return render_template("main/url.html", result=result)
     else:
-        return render_template("main/index.html", form=form, config=config)
+        return render_template("main/index.html", form=form)
 
 
-# Shortened url route
 @bp.route("/<token>")
 def short_url(token):
     query = URL.query.filter_by(token=token).first()
 
     # If the query response was empty
     if not query:
-        # Return the error page with a 404 not found error
         return (
             render_template(
                 "main/error.html", error_code=404, error_message="Not Found"
@@ -56,39 +55,30 @@ def short_url(token):
         return redirect(query.url)
 
 
-@bp.route("/tracker", methods=["GET", "POST"])
+@bp.route("/tracker", methods=("GET", "POST"))
 def tracker():
-    form = ShortURLForm()
+    form = TokenForm()
 
     if form.validate_on_submit():
         # Get the clicks of the given token
-        clicks = URL.query.filter_by(token=form.url.data).first().clicks
-
+        clicks = URL.query.filter_by(token=form.token.data).first().clicks
         return render_template("main/clicks.html", clicks=clicks)
-
     else:
         return render_template("main/tracker.html", form=form)
 
 
-@bp.route("/lookup", methods=["GET", "POST"])
+@bp.route("/lookup", methods=("GET", "POST"))
 def lookup():
-    # Create a instance of the form
-    form = ShortURLForm()
+    form = TokenForm()
 
-    # If the form was valid
     if form.validate_on_submit():
         # Get the original url of the given token
-        url = URL.query.filter_by(token=form.url.data).first().url
-
-        # Return the original url page with the url
+        url = URL.query.filter_by(token=form.token.data).first().url
         return render_template("main/original-url.html", url=url)
-
-    # Else if the form was invalid or not submitted
     else:
         return render_template("main/lookup.html", form=form)
 
 
-# Removed url route
 @bp.route("/removed")
 def removed():
     return render_template("main/removed.html")
@@ -122,7 +112,7 @@ def cmd_shorten(url: str):
     db.session.add(URL(token=token, url=url))
     db.session.commit()
 
-    result = f"{config['url']}/{token}"
+    result = f"localhost/{token}"
     click.secho(f"Here is your short URL: {result}", fg="green")
 
 
