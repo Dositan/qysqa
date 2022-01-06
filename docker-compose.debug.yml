@@ -1,8 +1,8 @@
 version: '3.4'
 
 services:
-  qysqa:
-    image: qysqa
+  app:
+    image: app
     build:
       context: .
       dockerfile: ./Dockerfile
@@ -11,4 +11,4 @@ services:
       - 8000:8000
       - 5678:5678
     environment:
-      - FLASK_APP=qysqa
+      - FLASK_APP=app
