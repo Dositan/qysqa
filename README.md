@@ -6,7 +6,7 @@
 	<p>- It's "qısqa", which means "short" in Kazakh</p>
 </div>
 
-![Site demo](qysqa/static/demo.png)
+![Site demo](app/static/demo.png)
 
 ### Why to use?
 **Simplicity.** Qysqa is really easy to use and it's completely free!
@@ -55,7 +55,7 @@ Qysqa also provides simple CLI features:
 - [x] Change configuration:
 	- [x] the way of configuring
 	- [x] configuration structure
-	- [x] more flexible implementation, by probably using qysqa/config.py and .env
+	- [x] more flexible implementation, by probably using app/config.py and .env
 	- [ ] add database credentials
 
 - [ ] Implement auth feature
