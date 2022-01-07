@@ -8,4 +8,7 @@ class URL(db.Model):
     clicks = db.Column(db.Integer, nullable=False, default=0)
 
     def __repr__(self):
-        return f"'{self.id}' '{self.token}' '{self.url}' '{self.clicks}'"
+        return f"URL(id='{self.id}' token='{self.token}' clicks='{self.clicks}'"
+
+    def __str__(self) -> str:
+        return self.url
