@@ -2,9 +2,10 @@ import click
 from flask import Blueprint, redirect, render_template, request
 
 from app import db
-from app.main.forms import ShortURLForm, URLForm
-from app.main.models import URL
-from app.main.token import gen_valid_token
+
+from .forms import ShortURLForm, URLForm
+from .models import URL
+from .token import gen_valid_token
 
 bp = Blueprint("main", __name__)
 bp.cli.short_help = "Make URL manipulations directly in the terminal"

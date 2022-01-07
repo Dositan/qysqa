@@ -1,7 +1,8 @@
 from secrets import choice
 
 from app import db
-from app.main.models import URL
+
+from .models import URL
 
 TOKEN_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz_-"
 
