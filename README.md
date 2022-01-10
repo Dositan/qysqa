@@ -29,8 +29,6 @@ Run app with:
 
 	$ flask run
 
-**NOTE:** When running locally all short URLs will also be local.
-
 Qysqa also provides simple CLI features:
 
 	$ flask --help
@@ -50,19 +48,25 @@ Qysqa also provides simple CLI features:
 ### Todo
 
 - [ ] API:
+	- [ ] `/shorten`, `/geturl/<shorturl>`, `/info/<token>`
+	- [ ] Detailed documentation
 	- [ ] Make CLI use hosted API rather than returning static localhost
 
 - [x] Change configuration:
 	- [x] the way of configuring
 	- [x] configuration structure
-	- [x] more flexible implementation, by probably using app/config.py and .env
-	- [ ] add database credentials
+	- [x] more flexible implementation, by probably using `app/config.py` and `.env`
+	- [ ] add DATABASE_URI
 
-- [ ] Implement auth feature
-	- [ ] Ability to sort by user ID
+- [ ] Features
+	- [ ] Sort by user ID
 	- [ ] User statistics
+	- [ ] Top shortlinks (sort desc by clicks)
+	- [ ] Public/private short URLs (whether to include in top or not)
 
 - [ ] Better CLI
-	- [ ] Ability to use other shorteners
+	- [ ] Separate into files
+	- [ ] Write useful docstrings
+	- [ ] Use better practices
 
 - [x] Deploy to Heroku
