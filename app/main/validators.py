@@ -51,7 +51,7 @@ def validate_token(_, field):
     if len(field.data) < 6 or len(field.data) > 16:
         return
 
-    if field.data in ("tracker", "lookup", "removed"):
+    if field.data in ("tracker", "lookup"):
         raise ValidationError("Token name is reserved by website endpoints.")
 
     for char in field.data:

@@ -82,11 +82,6 @@ def lookup():
         return render_template("main/lookup.html", form=form)
 
 
-@bp.route("/removed")
-def removed():
-    return render_template("main/removed.html")
-
-
 # Error handling routes
 @bp.errorhandler(404)
 def error_404(_):
