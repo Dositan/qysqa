@@ -10,7 +10,7 @@
 		<link href="/static/style.css" rel="stylesheet" type="text/css"/>
 
 		<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-		<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+		<script src="https://kit.fontawesome.com/a21a50c51f.js" crossorigin="anonymous"></script>
 
 		<title>qysqa - Shorten your URL</title>
 	</head>
@@ -19,6 +19,7 @@
 			<ul>
 				<li class="logo"><a href="/">qysqa - URL Shortener</a></li>
 				<li class="items"><a href="{{ url_for('main.index') }}">Shortener</a></li>
+				<li class="items"><a href="{{ url_for('main.about') }}">About</a></li>
 				<li class="items"><a href="{{ url_for('main.tracker') }}">Tracker</a></li>
 				<li class="items"><a href="{{ url_for('main.lookup') }}">Lookup</a></li>
 				<li class="btn"><a href="#"><i class="fas fa-bars"></i></a></li>

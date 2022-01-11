@@ -13,6 +13,11 @@ bp.cli.short_help = "Make URL manipulations directly in the terminal"
 
 @bp.route("/", methods=("GET", "POST"))
 def index():
+    """
+    `/` endpoint
+
+    Here a long URL is handled, returning a short URL as the result
+    """
     form = URLForm()
     url = request.root_url
 
@@ -24,13 +29,12 @@ def index():
             result = f"{url}{form.token.data}"
             return render_template("main/url.html", result=result)
 
-        # Else if a token was not given
+        # Token was not given
         else:
             token = gen_valid_token()
             db.session.add(URL(token=token, url=form.url.data))
             db.session.commit()
 
-            # Return the url page with the shortened url
             result = f"{url}{token}"
             return render_template("main/url.html", result=result)
     else:
@@ -39,9 +43,14 @@ def index():
 
 @bp.route("/<token>")
 def short_url(token):
+    """
+    `/<token>` endpoint
+
+    Redirects to the original URL from a short one (using token)
+    """
     query = URL.query.filter_by(token=token).first()
 
-    # If the query response was empty
+    # Query response returned None
     if not query:
         return (
             render_template(
@@ -56,8 +65,23 @@ def short_url(token):
         return redirect(query.url)
 
 
+@bp.route("/about")
+def about():
+    """
+    `/about` endpoint
+
+    Displays static information about the project
+    """
+    return render_template("main/about.html")
+
+
 @bp.route("/tracker", methods=("GET", "POST"))
 def tracker():
+    """
+    `/tracker` endpoint
+
+    Returns amount of clicks for the given short URL
+    """
     form = ShortURLForm()
 
     if form.validate_on_submit():
@@ -71,6 +95,11 @@ def tracker():
 
 @bp.route("/lookup", methods=("GET", "POST"))
 def lookup():
+    """
+    `/lookup` endpoint
+
+    Returns the original URL from a short one (using token)
+    """
     form = ShortURLForm()
 
     if form.validate_on_submit():

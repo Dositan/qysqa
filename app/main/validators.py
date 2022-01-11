@@ -51,16 +51,12 @@ def validate_token(_, field):
     if len(field.data) < 6 or len(field.data) > 16:
         return
 
-    if field.data in ("tracker", "lookup"):
+    if field.data in ("about", "tracker", "lookup"):
         raise ValidationError("Token name is reserved by website endpoints.")
 
     for char in field.data:
         # If it is not a valid character
-        if (
-            not (char.isalpha())
-            and not (char.isdigit())
-            and char not in ("_", "-")
-        ):
+        if not (char.isalpha()) and not (char.isdigit()) and char not in ("_", "-"):
             raise ValidationError("Token contains invalid characters")
 
     if db.session.query(
