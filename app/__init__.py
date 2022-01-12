@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 from app.config import config
 
-__version__ = (1, 0, 2, "beta")
+__version__ = (1, 0, 0)
 
 db = SQLAlchemy()
 
