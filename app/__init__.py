@@ -1,13 +1,11 @@
-import os
-
 import click
 from flask import Flask
 from flask.cli import with_appcontext
 from flask_sqlalchemy import SQLAlchemy
 
-from app.config import SECRET_KEY
+from app.config import config
 
-__version__ = (0, 2, 0, "dev")
+__version__ = (1, 0, 0, "beta")
 
 db = SQLAlchemy()
 
@@ -15,17 +13,7 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__, instance_relative_config=True)
 
-    # if (db_url := config.DB_URL) is None:
-    db_path = os.path.join(app.instance_path, "db.sqlite3")
-    db_url = f"sqlite:///{db_path}"
-    # ensure the instance folder exists
-    os.makedirs(app.instance_path, exist_ok=True)
-
-    app.config.from_mapping(
-        SECRET_KEY=SECRET_KEY,
-        SQLALCHEMY_DATABASE_URI=db_url,
-        SQLALCHEMY_TRACK_MODIFICATIONS=False,
-    )
+    app.config.from_object(config[app.config["ENV"]])
 
     # initialize Flask-SQLAlchemy and the init-db commands
     db.init_app(app)

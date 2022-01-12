@@ -56,7 +56,7 @@ Qysqa also provides simple CLI features:
 	- [x] the way of configuring
 	- [x] configuration structure
 	- [x] more flexible implementation, by probably using `app/config.py` and `.env`
-	- [ ] add DATABASE_URI
+	- [x] add DATABASE_URL
 
 - [ ] Features
 	- [ ] Sort by user ID
