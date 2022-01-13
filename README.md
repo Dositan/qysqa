@@ -14,6 +14,7 @@
 ---
 
 ### Run locally
+**NOTE**: We assume that you have PostgreSQL set and running.
 
 Clone the repository:
 
@@ -24,6 +25,11 @@ CD into the directory, spawn virtual environment and install dependencies:
 	$ cd qysqa
 	$ poetry shell
 	$ poetry install
+
+Setting configuration:
+1. Open [.dist.env](/.dist.env) file.
+2. Update for your own purposes (you can ignore *DATABASE_URL*)
+
 
 Run app with:
 
