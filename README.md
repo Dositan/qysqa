@@ -65,6 +65,8 @@ Qysqa also provides simple CLI features:
 	- [x] add DATABASE_URL
 
 - [ ] Features
+	- [ ] Tests
+	- [ ] Sort by Date Added
 	- [ ] Sort by user ID
 	- [ ] User statistics
 	- [ ] Top shortlinks (sort desc by clicks)
