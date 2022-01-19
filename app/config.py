@@ -1,5 +1,6 @@
-import secrets
 import os
+import secrets
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -20,7 +21,9 @@ class ProductionConfig(BaseConfig):
     USE_RELOADER = False
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
     if SQLALCHEMY_DATABASE_URI.startswith("postgres://"):
-        SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI.replace("postgres://", "postgresql://", 1)
+        SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI.replace(
+            "postgres://", "postgresql://", 1
+        )
 
 
 config = {

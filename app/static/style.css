@@ -6,7 +6,7 @@
 }
 
 a {
-  color: white;
+  color: #ffffff;
   font-size: 18px;
   text-decoration: none;
   transition: 0.4s;
@@ -58,7 +58,7 @@ nav ul li.items:hover:after {
 
 nav ul li.logo {
   flex: 1;
-  color: white;
+  color: #ffffff;
   font-size: 23px;
   font-weight: 600;
   cursor: default;
@@ -124,7 +124,7 @@ body {
 }
 
 .feedback-input {
-  color: white;
+  color: #ffffff;
   font-weight: 500;
   font-size: 18px;
   border-radius: 5px;
@@ -158,7 +158,7 @@ body {
   border-radius: 5px;
   border: 0;
   cursor: pointer;
-  color: white;
+  color: #ffffff;
   font-size: 24px;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -223,7 +223,7 @@ body {
 .error {
   color: #ffffff;
   text-align: center;
-  margin-top: 250px;
+  margin-top: 20vh;
 }
 
 .error h1 {
@@ -239,6 +239,6 @@ footer {
   left: 0;
   bottom: 20px;
   width: 100%;
-  color: white;
+  color: #ffffff;
   text-align: center;
 }
