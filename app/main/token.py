@@ -1,6 +1,6 @@
 from secrets import choice
 
-from app import db
+from app.extensions import db
 
 from .models import URL
 

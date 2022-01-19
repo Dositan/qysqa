@@ -1,7 +1,7 @@
 from flask import request
 from wtforms import ValidationError
 
-from app import db
+from app.extensions import db
 
 from .models import URL
 
@@ -12,7 +12,7 @@ def validate_url(_, field):
         return
 
     # If url contains spaces or does not have any dots
-    if " " in field.data or not "." in field.data:
+    if " " in field.data or "." not in field.data:
         raise ValidationError("Invalid URL")
 
     # If url starts with a dot

@@ -1,38 +1,67 @@
-import click
-from flask import Flask
-from flask.cli import with_appcontext
-from flask_sqlalchemy import SQLAlchemy
+import logging
+import sys
 
+from flask import Flask, render_template
+
+from app import commands, main
 from app.config import config
-
-__version__ = (1, 0, 0)
-
-db = SQLAlchemy()
+from app.extensions import csrf_protect, db
 
 
 def create_app():
-    app = Flask(__name__, instance_relative_config=True)
-
+    """Qysqa application factory."""
+    app = Flask(__name__)
     app.config.from_object(config[app.config["ENV"]])
-
-    # initialize Flask-SQLAlchemy and the init-db commands
-    db.init_app(app)
-    app.cli.add_command(init_db)
-
-    from . import main
-
-    app.register_blueprint(main.bp)
-
-    # make "index" point at "/"
-    app.add_url_rule("/", endpoint="index")
-
+    register_extensions(app)
+    register_blueprints(app)
+    register_errorhandlers(app)
+    register_commands(app)
+    configure_logger(app)
     return app
 
 
-@click.command("init-db")
-@with_appcontext
-def init_db():
-    """Clear the existing data and create new tables."""
-    db.drop_all()
-    db.create_all()
-    click.secho("Initialized the database.", fg="green")
+def register_extensions(app):
+    """Register Flask extensions."""
+    db.init_app(app)
+    csrf_protect.init_app(app)
+    return None
+
+
+def register_blueprints(app):
+    """Register app blueprints."""
+    app.register_blueprint(main.bp)
+    return None
+
+
+def register_errorhandlers(app):
+    """Register error handlers."""
+    messages = {
+        404: "Not Found",
+        500: "Server Error",
+    }
+
+    def render_error(error):
+        """Render error template."""
+        # If a HTTPException, pull the `code` attribute; default to 500
+        error_code = getattr(error, "code", 500)
+        return render_template("error.html", error, messages[error]), error_code
+
+    for errcode in (404, 500):
+        app.errorhandler(errcode)(render_error)
+    return None
+
+
+def register_commands(app):
+    """Register Click commands."""
+    app.cli.add_command(commands.init_db)
+    app.cli.add_command(commands.lint)
+    app.cli.add_command(commands.shorten)
+    app.cli.add_command(commands.tracker)
+    app.cli.add_command(commands.lookup)
+
+
+def configure_logger(app):
+    """Configure logger."""
+    handler = logging.StreamHandler(sys.stdout)
+    if not app.logger.handlers:
+        app.logger.addHandler(handler)
