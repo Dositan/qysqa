@@ -44,7 +44,7 @@ Qysqa also provides simple CLI features:
 
 	Commands:
 	init-db  Clear the existing data and create new tables.
-	main     Make URL manipulations directly in the terminal
+	lint     Lint and check code style with black, flake8 and isort.
 	routes   Show the routes for the app.
 	run      Run a development server.
 	shell    Run a shell in the app context.
@@ -52,11 +52,6 @@ Qysqa also provides simple CLI features:
 ---
 
 ### Todo
-
-- [ ] API:
-	- [ ] `/shorten`, `/geturl/<shorturl>`, `/info/<token>`
-	- [ ] Detailed documentation
-	- [ ] Make CLI use hosted API rather than returning static localhost
 
 - [x] Change configuration:
 	- [x] the way of configuring
@@ -66,15 +61,15 @@ Qysqa also provides simple CLI features:
 
 - [ ] Features
 	- [ ] Tests
-	- [ ] Sort by Date Added
-	- [ ] Sort by user ID
-	- [ ] User statistics
-	- [ ] Top shortlinks (sort desc by clicks)
-	- [ ] Public/private short URLs (whether to include in top or not)
+	- [x] Authentication
+	- [ ] Profile:
+		- [ ] Statistics for each
+		- [ ] CRUD operations
+		- [ ] Logout
 
-- [ ] Better CLI
-	- [ ] Separate into files
-	- [ ] Write useful docstrings
-	- [ ] Use better practices
+- [x] Better CLI
+	- [x] Separate into files
+	- [x] Write useful docstrings
+	- [x] Use better practices
 
 - [x] Deploy to Heroku
