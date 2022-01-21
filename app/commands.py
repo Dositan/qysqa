@@ -6,9 +6,7 @@ from subprocess import call
 import click
 from flask.cli import with_appcontext
 
-from app.extensions import db
-from app.main.models import URL
-from app.main.token import gen_valid_token
+from .database import db
 
 
 @click.command("init-db")
@@ -60,31 +58,3 @@ def lint(fix_imports, check):
         execute_tool("Fixing import order", "isort", *isort_args)
     execute_tool("Formatting style", "black", *black_args)
     execute_tool("Checking code style", "flake8")
-
-
-@click.command()
-@click.argument("url")
-def shorten(url: str):
-    """Shorten your really long URL."""
-    token = gen_valid_token()
-    db.session.add(URL(token=token, url=url))
-    db.session.commit()
-
-    result = f"localhost/{token}"
-    click.secho(f"Here is your short URL: {result}", fg="green")
-
-
-@click.command()
-@click.argument("token")
-def tracker(token: str):
-    """Get the amount of clicks on a certain URL."""
-    clicks = URL.query.filter_by(token=token).first().clicks
-    click.secho(f"URL has: {clicks} {'click' if clicks == 1 else 'clicks'}", fg="green")
-
-
-@click.command()
-@click.argument("token")
-def lookup(token: str):
-    """Get the original URL from a short one."""
-    url = URL.query.filter_by(token=token).first().url
-    click.secho(f"Original URL: {url}", fg="green")
