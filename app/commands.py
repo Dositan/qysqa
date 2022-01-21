@@ -4,18 +4,6 @@ from glob import glob
 from subprocess import call
 
 import click
-from flask.cli import with_appcontext
-
-from .database import db
-
-
-@click.command("init-db")
-@with_appcontext
-def init_db():
-    """Clear the existing data and create new tables."""
-    db.drop_all()
-    db.create_all()
-    click.secho("Initialized the database.", fg="green")
 
 
 @click.command()

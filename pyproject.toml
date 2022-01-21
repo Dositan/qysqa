@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "qysqa"
-version = "1.2.0"
+version = "1.3.0"
 description = "URL shortener website"
 authors = ["Dastan Ozgeldi <ozgdastan@gmail.com>"]
 
@@ -13,6 +13,7 @@ python-dotenv = "^0.19.2"
 psycopg2 = "^2.9.3"
 Flask-Bcrypt = "^0.7.1"
 Flask-Login = "^0.5.0"
+Flask-Migrate = "^3.1.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
@@ -23,3 +24,9 @@ gunicorn = "^20.1.0"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+exclude = "migrations"
+
+[tool.isort]
+skip = "migrations"

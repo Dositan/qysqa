@@ -5,7 +5,7 @@ from flask import Flask, render_template
 
 from app import auth, commands, main
 from app.config import config
-from app.extensions import bcrypt, csrf_protect, db, login_manager
+from app.extensions import bcrypt, csrf_protect, db, login_manager, migrate
 
 
 def create_app():
@@ -23,6 +23,7 @@ def create_app():
 def register_extensions(app):
     """Register Flask extensions."""
     db.init_app(app)
+    migrate.init_app(app, db)
     csrf_protect.init_app(app)
     login_manager.init_app(app)
     bcrypt.init_app(app)
@@ -44,8 +45,10 @@ def register_errorhandlers(app):
     }
 
     def render_error(error):
-        """Render error template."""
-        # If a HTTPException, pull the `code` attribute; default to 500
+        """Render error template.
+
+        If an HTTPException, pull the `code` attribute; defaults to 500
+        """
         error_code = getattr(error, "code", 500)
         return render_template("error.html", error, messages[error]), error_code
 
@@ -56,7 +59,6 @@ def register_errorhandlers(app):
 
 def register_commands(app):
     """Register Click commands."""
-    app.cli.add_command(commands.init_db)
     app.cli.add_command(commands.lint)
 
 
