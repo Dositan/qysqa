@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "qysqa"
-version = "1.1.1"
+version = "1.1.2"
 description = "URL shortener website"
 authors = ["Dastan Ozgeldi <ozgdastan@gmail.com>"]
 
