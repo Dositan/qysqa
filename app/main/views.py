@@ -1,10 +1,10 @@
 from flask import Blueprint, redirect, render_template, request
 
-from app.extensions import db
+from app.database import db
 
 from .forms import ShortURLForm, URLForm
 from .models import URL
-from .token import gen_valid_token
+from .token import generate_token
 
 bp = Blueprint("main", __name__)
 
@@ -29,7 +29,7 @@ def index():
 
         # Token was not given
         else:
-            token = gen_valid_token()
+            token = generate_token()
             db.session.add(URL(token=token, url=form.url.data))
             db.session.commit()
 

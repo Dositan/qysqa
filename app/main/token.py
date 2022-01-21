@@ -1,13 +1,13 @@
 from secrets import choice
 
-from app.extensions import db
+from app.database import db
 
 from .models import URL
 
 TOKEN_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz_-"
 
 
-def gen_valid_token():
+def generate_token():
     while True:
         token = "".join(choice(TOKEN_CHARS) for _ in range(6))
 
