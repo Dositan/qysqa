@@ -125,7 +125,7 @@ body {
   background: #0c2431;
 }
 
-.feedback-input {
+.main-input {
   color: #ffffff;
   font-weight: 500;
   font-size: 18px;
@@ -141,7 +141,7 @@ body {
   outline: 0;
 }
 
-.feedback-input:focus {
+.main-input:focus {
   border: 2px solid #c95c03;
 }
 

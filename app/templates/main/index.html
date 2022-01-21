@@ -4,17 +4,14 @@
 <form method="POST" action="" class="url-form">
 	<h1>&#60 URL Shortener &#62</h1>
 	{{ form.hidden_tag() }}
-	{{ form.url(placeholder="Enter the URL here", autofocus=true, class="feedback-input") }}
+	{{ form.url(placeholder="Enter the URL here", autofocus=true, class="main-input") }}
 	<div class="token">
 		<h3 id="production_url">qysqa/</h3>
-		{{ form.token(placeholder="Use custom token (optional)", class="feedback-input") }}
+		{{ form.token(placeholder="Use custom token (optional)", class="main-input") }}
 	</div>
 	{{ form.submit(class="button") }}
 	{% if form.errors %}
 		<div class="form-errors">
-			{% for error in form.url.errors %}
-				<h4>{{ error }}</h4>
-			{% endfor %}
 			{% for error in form.url.errors %}
 				<h4>{{ error }}</h4>
 			{% endfor %}
@@ -24,5 +21,7 @@
 {% endblock %}
 
 {% block script %}
-document.getElementById('production_url').textContent = window.location.href
+<script>
+	document.getElementById('production_url').textContent = window.location.href
+</script>
 {% endblock %}

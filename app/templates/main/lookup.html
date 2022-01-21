@@ -4,7 +4,7 @@
 <form method="POST" action="" class="url-form">
 	<h1>&#60 URL Lookup &#62</h1>
 	{{ form.hidden_tag() }}
-	{{ form.url(placeholder="Enter the short URL or its token here", autofocus=true, class="feedback-input") }}
+	{{ form.url(placeholder="Enter the short URL or its token here", autofocus=true, class="main-input") }}
 	{{ form.submit(class="button") }}
 	{% if form.errors %}
 		<div class="form-errors">
