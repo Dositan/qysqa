@@ -48,28 +48,3 @@ Qysqa also provides simple CLI features:
 	routes   Show the routes for the app.
 	run      Run a development server.
 	shell    Run a shell in the app context.
-
----
-
-### Todo
-
-- [x] Change configuration:
-	- [x] the way of configuring
-	- [x] configuration structure
-	- [x] more flexible implementation, by probably using `app/config.py` and `.env`
-	- [x] add DATABASE_URL
-
-- [ ] Features
-	- [ ] Tests
-	- [x] Authentication
-	- [ ] Profile:
-		- [ ] Statistics for each
-		- [ ] CRUD operations
-		- [ ] Logout
-
-- [x] Better CLI
-	- [x] Separate into files
-	- [x] Write useful docstrings
-	- [x] Use better practices
-
-- [x] Deploy to Heroku
