@@ -20,19 +20,13 @@ def index():
     url = request.root_url
 
     if form.validate_on_submit():
-        if form.token.data:
-            db.session.add(URL(token=form.token.data, url=form.url.data))
-            db.session.commit()
-
+        if form.token.data:  # custom token given
+            URL.create(token=form.token.data, url=form.url.data)
             result = f"{url}{form.token.data}"
             return render_template("main/url.html", result=result)
-
-        # Token was not given
         else:
             token = generate_token()
-            db.session.add(URL(token=token, url=form.url.data))
-            db.session.commit()
-
+            URL.create(token=form.token.data, url=form.url.data)
             result = f"{url}{token}"
             return render_template("main/url.html", result=result)
     else:

@@ -1,7 +1,6 @@
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import login_required, login_user, logout_user
 
-from app.database import db
 from app.extensions import login_manager
 
 from .forms import LoginForm, RegisterForm
@@ -20,9 +19,7 @@ def load_user(user_id):
 def register():
     form = RegisterForm(request.form)
     if form.validate_on_submit():
-        user = User(username=form.username.data, password=form.password.data)
-        db.session.add(user)
-        db.session.commit()
+        User.create(username=form.username.data, password=form.password.data)
         flash(
             "Thank you for registering. You've now unlocked some new features!",
             "success",
