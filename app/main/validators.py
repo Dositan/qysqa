@@ -1,4 +1,4 @@
-from flask import request
+from flask import current_app, request
 from wtforms import ValidationError
 
 from app.database import db
@@ -51,8 +51,10 @@ def validate_token(_, token):
     if len(token.data) < 6 or len(token.data) > 16:
         return
 
-    if token.data in ("about", "tracker", "lookup"):
-        raise ValidationError("Token name is reserved by website endpoints.")
+    # Check if custom token does not conflict with app endpoints
+    for route_name in current_app.url_map.iter_rules():
+        if token.data == str(route_name).split("/")[1]:
+            raise ValidationError("Token name is reserved by website endpoints.")
 
     for char in token.data:
         # If it is not a valid character
