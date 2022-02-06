@@ -2,19 +2,19 @@
 
 {% block body %}
 <div class="url-form">
-	<h1>&#60 Short URL &#62</h1>
-	<input type="text" value="{{ result }}" id="url" class="main-input" readonly>
-	<button onclick="copyURL()" class="button">Copy</button>
+    <h1>&#60 Short URL &#62</h1>
+    <input type="text" value="{{ result }}" id="url" class="main-input" readonly>
+    <button onclick="copyURL()" class="button">Copy</button>
 </div>
 {% endblock %}
 
 {% block script %}
 <script>
-	function copyURL() {
-		var url = document.getElementById("url");
-		url.select();
-		url.setSelectionRange(0, 99999)
-		document.execCommand("copy");
-	}
+    function copyURL() {
+        var url = document.getElementById("url");
+        url.select();
+        url.setSelectionRange(0, 99999)
+        document.execCommand("copy");
+    }
 </script>
 {% endblock %}

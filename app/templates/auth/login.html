@@ -2,17 +2,17 @@
 
 {% block body %}
 <form method="POST" action="" class="url-form">
-	<h1>&#60 Log In &#62</h1>
-	{{ form.hidden_tag() }}
-	{{ form.username(placeholder="Enter the username", autofocus=true, class="main-input") }}
-	{{ form.password(placeholder="Enter the password", autofocus=true, class="main-input") }}
+    <h1>&#60 Log In &#62</h1>
+    {{ form.hidden_tag() }}
+    {{ form.username(placeholder="Enter the username", autofocus=true, class="main-input") }}
+    {{ form.password(placeholder="Enter the password", autofocus=true, class="main-input") }}
     {{ form.submit(class="button") }}
-	{% if form.errors %}
-		<div class="form-errors">
-			{% for error in form.url.errors %}
-				<h4>{{ error }}</h4>
-			{% endfor %}
-		</div>
-	{% endif %}
+    {% if form.errors %}
+        <div class="form-errors">
+            {% for error in form.username.errors %}
+                <h4>{{ error }}</h4>
+            {% endfor %}
+        </div>
+    {% endif %}
 </form>
 {% endblock %}
