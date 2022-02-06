@@ -6,7 +6,7 @@ from app.extensions import login_manager
 from .forms import LoginForm, RegisterForm
 from .models import User
 
-bp = Blueprint("auth", __name__, url_prefix="/auth")
+bp = Blueprint("auth", __name__)
 
 
 @login_manager.user_loader
@@ -46,3 +46,15 @@ def logout():
     logout_user()
     flash("You are logged out.", "info")
     return redirect(url_for("main.index"))
+
+
+@bp.route("/u/<username>")
+@login_required
+def profile(username):
+    """
+    `/u` endpoint
+
+    Shows user-specific page (short URLs, overall clicks etc.)
+    """
+    user = User.query.filter_by(username=username).first()
+    return render_template("auth/profile.html", user=user)
