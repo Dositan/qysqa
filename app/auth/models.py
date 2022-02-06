@@ -14,7 +14,6 @@ class User(UserMixin, PkModel):
     username = Column(db.String(80), unique=True, nullable=False)
     _password = Column("password", db.LargeBinary(128), nullable=True)
     created_at = Column(db.DateTime, nullable=False, default=datetime.utcnow())
-    active = Column(db.Boolean(), default=False)
 
     @hybrid_property
     def password(self):
