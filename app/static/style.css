@@ -222,6 +222,31 @@ body {
   font-size: 25px;
 }
 
+.profile {
+  color: #ffffff;
+}
+
+.profile table {
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 20px;
+  color: #ffffff;
+  text-align: center;
+  background-color: #13305c;
+  font-size: 24px;
+}
+
+.profile a:hover {
+  color: #e26803;
+}
+
+.profile .button {
+  /* width: 50%; */
+  margin: 0 auto;
+  margin-top: 20px;
+  text-align: center;
+}
+
 .error {
   color: #ffffff;
   text-align: center;
@@ -237,10 +262,14 @@ body {
 }
 
 footer {
-  position: fixed;
-  left: 0;
+  margin-top: 20px;
+  height: 50px;
   bottom: 20px;
   width: 100%;
   color: #ffffff;
   text-align: center;
+}
+
+footer a:hover {
+  color: #f68741;
 }

@@ -2,26 +2,34 @@
 
 {% block body %}
 <form method="POST" action="" class="url-form">
-	<h1>&#60 URL Shortener &#62</h1>
-	{{ form.hidden_tag() }}
-	{{ form.url(placeholder="Enter the URL here", autofocus=true, class="main-input") }}
-	<div class="token">
-		<h3 id="production_url">qysqa/</h3>
-		{{ form.token(placeholder="Use custom token (optional)", class="main-input") }}
-	</div>
-	{{ form.submit(class="button") }}
-	{% if form.errors %}
-		<div class="form-errors">
-			{% for error in form.url.errors %}
-				<h4>{{ error }}</h4>
-			{% endfor %}
-		</div>
-	{% endif %}
+    <h1>&#60 URL Shortener &#62</h1>
+    {{ form.hidden_tag() }}
+    {{ form.url(placeholder="Enter the URL here", autofocus=true, class="main-input") }}
+    <div class="token">
+        <h3 id="production_url">qysqa/</h3>
+        {{ form.token(placeholder="Use custom token (optional)", class="main-input") }}
+    </div>
+    {{ form.submit(class="button") }}
+    {% if form.errors %}
+        <div class="form-errors">
+            {% for error in form.url.errors %}
+                <h4>{{ error }}</h4>
+            {% endfor %}
+        </div>
+    {% endif %}
 </form>
 {% endblock %}
 
 {% block script %}
 <script>
-	document.getElementById('production_url').textContent = window.location.href
+    let prodUrl = document.getElementById('production_url');
+    // In production, mobile users cannot see what they're typing
+    // in the custom token form. We check if it's a mobile user,
+    // then change the content to a much shorter URL
+    if (window.innerWidth < 700 ) {
+        prodUrl.textContent = 'qysqa.cc/';
+    } else {
+        prodUrl.textContent = window.location.href;
+    }
 </script>
 {% endblock %}

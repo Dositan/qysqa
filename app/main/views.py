@@ -1,4 +1,5 @@
 from flask import Blueprint, redirect, render_template, request
+from flask_login import current_user
 
 from app.database import db
 
@@ -20,13 +21,14 @@ def index():
     url = request.root_url
 
     if form.validate_on_submit():
+        user_id = None if current_user.is_anonymous else current_user.id
         if form.token.data:  # custom token given
-            URL.create(token=form.token.data, url=form.url.data)
+            URL.create(token=form.token.data, url=form.url.data, user_id=user_id)
             result = f"{url}{form.token.data}"
             return render_template("main/url.html", result=result)
         else:
             token = generate_token()
-            URL.create(token=form.token.data, url=form.url.data)
+            URL.create(token=token, url=form.url.data, user_id=user_id)
             result = f"{url}{token}"
             return render_template("main/url.html", result=result)
     else:
@@ -96,6 +98,6 @@ def lookup():
         # Get the original url of the given token
         token = form.url.data.split("/")[-1]
         url = URL.query.filter_by(token=token).first().url
-        return render_template("main/original-url.html", url=url)
+        return render_template("main/original.html", url=url)
     else:
         return render_template("main/lookup.html", form=form)
