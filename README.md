@@ -1,9 +1,9 @@
 <div align="center">
     <h1>Qysqa - shorten your URL</h1>
     <p>~ A simple URL-shortening website.</p>
-	<br/>
-	<strong>how do you pronounce it tho?</strong>
-	<p>- It's "qısqa", which means "short" in Kazakh</p>
+    <br/>
+    <strong>how do you pronounce it tho?</strong>
+    <p>- It's "qısqa", which means "short" in Kazakh</p>
 </div>
 
 ![Site demo](app/static/demo.png)
@@ -18,13 +18,13 @@
 
 Clone the repository:
 
-	$ git clone https://github.com/Dositan/qysqa.git
+    $ git clone https://github.com/Dositan/qysqa.git
 
 CD into the directory, spawn virtual environment and install dependencies:
 
-	$ cd qysqa
-	$ poetry shell
-	$ poetry install
+    $ cd qysqa
+    $ poetry shell
+    $ poetry install
 
 Setting configuration:
 1. Open [.dist.env](/.dist.env) file.
@@ -33,18 +33,18 @@ Setting configuration:
 
 Run app with:
 
-	$ flask run
+    $ flask run
 
 Qysqa also provides simple CLI features:
 
-	$ flask --help
-	Usage: flask [OPTIONS] COMMAND [ARGS]...
+    $ flask --help
+    Usage: flask [OPTIONS] COMMAND [ARGS]...
 
-	...
+    ...
 
-	Commands:
-	init-db  Clear the existing data and create new tables.
-	lint     Lint and check code style with black, flake8 and isort.
-	routes   Show the routes for the app.
-	run      Run a development server.
-	shell    Run a shell in the app context.
+    Commands:
+    db      Perform database migrations.
+    lint    Lint and check code style with black, flake8 and isort.
+    routes  Show the routes for the app.
+    run     Run a development server.
+    shell   Run a shell in the app context.
