@@ -5,7 +5,7 @@ from flask import Flask, render_template
 
 from app import auth, commands, main
 from app.config import config
-from app.extensions import bcrypt, csrf_protect, db, login_manager, migrate
+from app.extensions import csrf_protect, db, login_manager, migrate
 
 
 def create_app():
@@ -26,7 +26,6 @@ def register_extensions(app):
     migrate.init_app(app, db)
     csrf_protect.init_app(app)
     login_manager.init_app(app)
-    bcrypt.init_app(app)
     return None
 
 
