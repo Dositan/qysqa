@@ -5,20 +5,24 @@
   <h1 align="center">User: {{ user.username }}</h1>
   <h2 align="center">Created: {{ user.created_at.strftime("%Y:%m:%d") }}</h2>
   <table>
-    <tr>
-      <th>URL tokens</th>
-      <th>Clicks</th>
-    </tr>
-    {% for url in user.urls %}
-    <tr>
-      <td>
-        <a href="{{ url_for('main.short_url', token=url.token) }}"
-          >{{ url.token }}</a
-        >
-      </td>
-      <td>{{ url.clicks }}</td>
-    </tr>
-    {% endfor %}
+    <thead>
+      <tr>
+        <th>URL tokens</th>
+        <th>Clicks</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for url in user.urls %}
+      <tr>
+        <td>
+          <a href="{{ url_for('main.short_url', token=url.token) }}"
+            >{{ url.token }}</a
+          >
+        </td>
+        <td>{{ url.clicks }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
   </table>
 </div>
 {% endblock %}

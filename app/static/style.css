@@ -59,8 +59,9 @@ nav ul li.items:hover:after {
 }
 
 nav ul li.logo {
-  flex: 1;
   color: #ffffff;
+  padding: 0;
+  margin-right: 600px;
   font-size: 23px;
   font-weight: 600;
   cursor: default;
@@ -81,6 +82,19 @@ nav ul li.btn {
 
 nav ul li.btn.hide i:before {
   content: "\f00d";
+}
+
+footer {
+  position: fixed;
+  height: 30px;
+  bottom: 0;
+  width: 100%;
+  color: #ffffff;
+  text-align: center;
+}
+
+footer a:hover {
+  color: #f68741;
 }
 
 .url-form {
@@ -223,28 +237,48 @@ body {
 }
 
 .profile {
-  color: #ffffff;
+  color: antiquewhite;
 }
 
 .profile table {
+  margin-left: auto;
+  margin-right: auto;
   width: 50%;
-  margin: 0 auto;
+  border-collapse: collapse;
   margin-top: 20px;
-  color: #ffffff;
+}
+
+.profile td, .profile th {
+  padding: 12px 15px;
+  border: 1px solid white;
   text-align: center;
-  background-color: #13305c;
-  font-size: 24px;
+  font-size: 16px;
+}
+
+.profile th {
+  font-size: 18px;
+  background-color: #0f095e;
+  color: white;
+}
+
+@media(max-width: 500px) {
+  .profile table, .profile tbody, .profile tr, .profile td {
+    display: block;
+    width: 100%;
+  }
+  .profile tr {
+    margin-bottom: 15px;
+  }
+  .profile td {
+    text-align: right;
+    padding-left: 50%;
+    text-align: right;
+    position: relative;
+  }
 }
 
 .profile a:hover {
-  color: #e26803;
-}
-
-.profile .button {
-  /* width: 50%; */
-  margin: 0 auto;
-  margin-top: 20px;
-  text-align: center;
+  color: #f68741;
 }
 
 .error {
@@ -259,17 +293,4 @@ body {
 
 .error h2 {
   font-size: 50px;
-}
-
-footer {
-  margin-top: 20px;
-  height: 50px;
-  bottom: 20px;
-  width: 100%;
-  color: #ffffff;
-  text-align: center;
-}
-
-footer a:hover {
-  color: #f68741;
 }
