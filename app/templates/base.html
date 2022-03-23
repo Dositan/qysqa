@@ -53,6 +53,14 @@
       </ul>
     </nav>
 
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <span class="flashed">{{ message }}</span>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
     {% block body %}{% endblock %}
 
     <script>

@@ -97,6 +97,13 @@ footer a:hover {
   color: #f68741;
 }
 
+.flashed {
+  margin: auto;
+  display: table;
+  color: white;
+  border: 1px solid #25DD3E;
+}
+
 .url-form {
   max-width: 700px;
   text-align: center;
