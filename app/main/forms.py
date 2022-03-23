@@ -6,6 +6,8 @@ from .validators import validate_short_url, validate_token, validate_url
 
 
 class URLForm(FlaskForm):
+    """The regular URL form used in the `index` route."""
+
     url = StringField(
         validators=[
             DataRequired(),
@@ -24,6 +26,8 @@ class URLForm(FlaskForm):
 
 
 class ShortURLForm(FlaskForm):
+    """The 'short URL' form used in endpoints `/tracker` and `/lookup`."""
+
     url = StringField(
         validators=[
             DataRequired(),

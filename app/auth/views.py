@@ -17,6 +17,11 @@ def load_user(user_id):
 
 @bp.route("/register", methods=("GET", "POST"))
 def register():
+    """
+    `/register` endpoint
+
+    Creates a user account and redirects to the login page.
+    """
     form = RegisterForm(request.form)
     if form.validate_on_submit():
         User.create(username=form.username.data, password=form.password.data)
@@ -31,6 +36,11 @@ def register():
 
 @bp.route("/login", methods=("GET", "POST"))
 def login():
+    """
+    `/login` endpoint
+
+    Logs in a user and redirects to the index page.
+    """
     form = LoginForm(request.form)
     if form.validate_on_submit():
         login_user(form.user)
@@ -43,6 +53,11 @@ def login():
 @bp.route("/logout")
 @login_required
 def logout():
+    """
+    `/register` endpoint
+
+    Logs out a user and redirects to the index page.
+    """
     logout_user()
     flash("You are logged out.", "info")
     return redirect(url_for("main.index"))
