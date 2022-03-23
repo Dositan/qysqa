@@ -29,7 +29,9 @@ def register():
             "Thank you for registering. You've now unlocked some new features!",
             "success",
         )
-        return redirect(url_for("auth.login"))
+        user = User.query.filter_by(username=form.username.data).first()
+        login_user(user)
+        return redirect(url_for("main.index"))
 
     return render_template("auth/register.html", form=form)
 
