@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block body %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/clicks.css') }}" />
 <div class="clicks">
     <h1>{{ clicks }}</h1>
     <h2>{{ "Click" if clicks == 1 else "Clicks" }}</h2>

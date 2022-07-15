@@ -1,0 +1,33 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/navbar.css') }}" />
+<nav>
+  <ul>
+    <li class="logo"><a href="/">qysqa - URL Shortener</a></li>
+    <li class="items"><a href="{{ url_for('main.about') }}">About</a></li>
+    <li class="items"><a href="{{ url_for('main.tracker') }}">Tracker</a></li>
+    <li class="items"><a href="{{ url_for('main.lookup') }}">Lookup</a></li>
+    {% if current_user and current_user.is_authenticated %}
+    <li class="items">
+      <a href="{{ url_for('auth.profile', username=current_user.username) }}"
+        >Profile</a
+      >
+    </li>
+    <li class="items">
+      <a href="{{ url_for('auth.logout') }}">Log Out</a>
+    </li>
+    {% elif form %}
+    <li class="items"><a href="{{ url_for('auth.register') }}">Register</a></li>
+    <li class="items"><a href="{{ url_for('auth.login') }}">Log In</a></li>
+    {% endif %}
+    <li class="btn">
+      <a><i class="fas fa-bars"></i></a>
+    </li>
+  </ul>
+</nav>
+<script>
+  $(document).ready(function () {
+    $(".btn").click(function () {
+      $(".items").toggleClass("show");
+      $("ul li").toggleClass("hide");
+    });
+  });
+</script>

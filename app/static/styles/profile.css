@@ -1,0 +1,44 @@
+.profile h1, .profile h2 {
+  text-align: center;
+}
+
+.profile table {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.profile td,
+.profile th {
+  padding: 12px 15px;
+  border: 1px solid #fff;
+  text-align: center;
+  font-size: 16px;
+}
+
+.profile th {
+  font-size: 18px;
+  background-color: #0f095e;
+  color: #fff;
+}
+
+@media (max-width: 500px) {
+  .profile table,
+  .profile tbody,
+  .profile tr,
+  .profile td {
+    display: block;
+    width: 100%;
+  }
+  .profile tr {
+    margin-bottom: 15px;
+  }
+  .profile td {
+    text-align: right;
+    padding-left: 50%;
+    text-align: right;
+    position: relative;
+  }
+}

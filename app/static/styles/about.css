@@ -1,0 +1,24 @@
+.about {
+  text-align: center;
+}
+
+.about h2 {
+  font-size: 33px;
+  margin-top: 25px;
+}
+
+.about p {
+  margin-top: 5px;
+  font-size: 18px;
+}
+
+.about ul {
+  list-style: none;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.about li {
+  margin-top: 5px;
+  font-size: 18px;
+}
