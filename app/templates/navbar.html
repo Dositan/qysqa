@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/navbar.css') }}" />
 <nav>
   <ul>
-    <li class="logo"><a href="/">qysqa - URL Shortener</a></li>
+    <li class="logo"><a href="/">qysqa - url shortener</a></li>
     <li class="items"><a href="{{ url_for('main.about') }}">About</a></li>
     <li class="items"><a href="{{ url_for('main.lookup') }}">Lookup</a></li>
     {% if current_user and current_user.is_authenticated %}
