@@ -67,24 +67,6 @@ def about():
     return render_template("main/about.html")
 
 
-@bp.route("/tracker", methods=("GET", "POST"))
-def tracker():
-    """
-    `/tracker` endpoint
-
-    Returns amount of clicks for the given short URL
-    """
-    form = ShortURLForm()
-
-    if form.validate_on_submit():
-        # Get the clicks of the given token
-        token = form.url.data.split("/")[-1]
-        clicks = URL.query.filter_by(token=token).first().clicks
-        return render_template("main/clicks.html", clicks=clicks)
-    else:
-        return render_template("main/tracker.html", form=form)
-
-
 @bp.route("/lookup", methods=("GET", "POST"))
 def lookup():
     """

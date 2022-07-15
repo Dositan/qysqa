@@ -26,7 +26,7 @@ class URLForm(FlaskForm):
 
 
 class ShortURLForm(FlaskForm):
-    """The 'short URL' form used in endpoints `/tracker` and `/lookup`."""
+    """Form for short URLs."""
 
     url = StringField(
         validators=[
