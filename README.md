@@ -2,8 +2,8 @@
     <h1>Qysqa - shorten your URL</h1>
     <p>~ A simple URL-shortening website.</p>
     <br/>
-    <strong>how do you pronounce it tho?</strong>
-    <p>- It's "qısqa", which means "short" in Kazakh</p>
+    <strong>what's the meaning behind qysqa?</strong>
+    <p>- "qısqa", a word for "short" in Kazakh 🇰🇿</p>
 </div>
 
 ![Site demo](app/static/demo.png)
@@ -18,13 +18,14 @@
 
 Clone the repository:
 
-    $ git clone https://github.com/Dositan/qysqa.git
+    git clone https://github.com/Dositan/qysqa.git
 
 CD into the directory, spawn virtual environment and install dependencies:
 
-    $ cd qysqa
-    $ poetry shell
-    $ poetry install
+    cd qysqa
+    python -m venv .venv
+    source .venv/bin/activate
+    pip install -r requirements.txt
 
 Setting configuration:
 1. Open [.dist.env](/.dist.env) file.
@@ -33,11 +34,11 @@ Setting configuration:
 
 Run app with:
 
-    $ flask run
+    flask run
 
-Qysqa also provides simple CLI features:
+Qysqa also comes with additional Flask commands:
 
-    $ flask --help
+    flask --help
     Usage: flask [OPTIONS] COMMAND [ARGS]...
 
     ...
